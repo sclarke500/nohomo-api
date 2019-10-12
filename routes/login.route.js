@@ -15,11 +15,11 @@ router.post('/login', async (req, res) => {
         let token = user.generateAuthToken();
         res.header('x-auth-token', token).json({status: 'ok'});
       } else {
-        res.code(400).json({message: 'no fucking way'});
+        res.status(400).json({message: 'no fucking way'});
       }
     })
   } else {
-    res.code(404).json({message: 'no user man'});
+    res.status(404).json({message: 'no user man'});
   }
 
 });

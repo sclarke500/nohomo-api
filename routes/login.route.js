@@ -13,13 +13,13 @@ router.post('/login', async (req, res) => {
       if (bcRes) {
         // login success!
         let token = user.generateAuthToken();
-        res.header('x-auth-token', token).send('ok');
+        res.header('x-auth-token', token).json({status: 'ok'});
       } else {
-        res.code(400).send('no fucking way');
+        res.code(400).json({message: 'no fucking way'});
       }
     })
   } else {
-    res.code(404).send('no user man');
+    res.code(404).json({message: 'no user man'});
   }
 
 });

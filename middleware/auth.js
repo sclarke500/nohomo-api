@@ -8,7 +8,7 @@ module.exports = function(req, res, next) {
 
   try {
     // if can verify token, set req.user and pass to next middleware
-    const decoded = jwt.verify(token, 'myTempSecretKey');
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
     req.user = decoded;
     next();
   } catch (ex) {

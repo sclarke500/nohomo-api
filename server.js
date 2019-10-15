@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const auth = require('./middleware/auth');
 
 const app = express();
 const port = (process.env.PORT || 3000);
@@ -13,12 +14,19 @@ app.use('/users', userRoute);
 const loginRoute = require('./routes/login.route');
 app.use('/', loginRoute);
 
+const mattersRoute = require('./routes/matters.route');
+app.use('/matters', auth, mattersRoute);
+
+const accountRoute = require('./routes/account.route');
+app.use('/', accountRoute);
+
+
 app.get('/', (req, res) => res.send('works!'));
 
 // connect to mongodb
 mongoose.set('useCreateIndex', true); //fixes an issue with a depricated default in Mongoose.js
 mongoose
-  .connect('mongodb+srv://testapp:genesis@cluster0-d3bja.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to mongo...'))
   .catch(err => console.error('Could not connect to Mongo'));
 

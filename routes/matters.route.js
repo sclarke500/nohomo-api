@@ -15,13 +15,20 @@ router.get('/', async (req, res) => {
 router.get('/:matterId', async (req, res) => {
   const matterId = req.params.matterId;
   let matter = await Matter.findOne({ firm_id: req.user.firm_id, _id: matterId });
-  const docs = await Document.find( { matter_id: matterId });
-  matter = matter.toJSON();
-  matter.documents = docs;
+  if (!matter) { res.status(401).json({message: 'unauthorized'})} // move to middleware?
   res.json(matter);
  });
  
-router.post('/:matterId/documents', async (req, res) => {
+ router.get('/:matterId/documents', async (req, res) => {
+  const matterId = req.params.matterId;
+  let matter = await Matter.findOne({ firm_id: req.user.firm_id, _id: matterId });
+  if (!matter) { res.status(401).json({message: 'unauthorized'})} // move to middleware?
+  const docs = await Document.find( { matter_id: matterId });
+  res.json(docs);
+ });
+
+
+ router.post('/:matterId/documents', async (req, res) => {
   const matterId = req.params.matterId;
   const matter = await Matter.findOne({ firm_id: req.user.firm_id, _id: matterId }); // ensure we own
   if (!matter) { res.status(401).json({message: 'unauthorized'})} // move to middleware?
@@ -39,6 +46,14 @@ router.post('/', async (req, res) => {
   let mtr = await matter.save();
   res.send(mtr);
 })
+
+router.delete('/:matterId', async (req, res) => {
+  const matterId = req.params.matterId;
+  const matter = await Matter.findOne({ firm_id: req.user.firm_id, _id: matterId }); // ensure we own
+  if (!matter) { res.status(401).json({message: 'unauthorized'})} // move to middleware?
+  await Matter.deleteOne({ _id: matterId })
+  res.send();
+ });
 
 
 module.exports = router;

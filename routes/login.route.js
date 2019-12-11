@@ -25,11 +25,11 @@ router.post('/login', async (req, res) => {
         }
         res.json(loginModel);
       } else {
-        res.status(400).json({message: 'no fucking way'});
+        res.status(400).json({message: 'Bad credentials 2'});
       }
     })
   } else {
-    res.status(404).json({message: 'no user man'});
+    res.status(400).json({message: 'Bad credentials'});
   }
 
 });

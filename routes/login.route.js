@@ -34,4 +34,8 @@ router.post('/login', async (req, res) => {
 
 });
 
+router.post('/forgot', async (req, res) => {
+  res.json({message: 'cool'});
+});
+
 module.exports = router;

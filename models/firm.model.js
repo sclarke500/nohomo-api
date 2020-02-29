@@ -8,11 +8,17 @@ const FirmSchema = new mongoose.Schema({
     minlength: 3,
     maxlength: 50,
   },
-  street1: String,
-  street2: String,
+  address1: String,
+  address2: String,
   city: String,
   postalCode: String,
   province: String,
+  telephone: String,
+  fax: String,
+  email: String,
+  lat: Number,
+  lng: Number,
+
 });
 
 const Firm = mongoose.model('Firm', FirmSchema);

@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const auth = require('./middleware/auth');
 
+mongoose.set('useFindAndModify', false);
+
 const app = express();
 const port = (process.env.PORT || 3000);
 app.use(cors());
@@ -19,6 +21,9 @@ app.use('/matters', auth, mattersRoute);
 
 const accountRoute = require('./routes/account.route');
 app.use('/', accountRoute);
+
+const firmRoute = require('./routes/firm.route');
+app.use('/firm', auth, firmRoute);
 
 
 app.get('/', (req, res) => res.send('works!'));

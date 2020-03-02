@@ -66,6 +66,13 @@ router.delete('/:matterId/documents/:documentId', async (req, res) => {
   res.send();
 });
 
+router.put('/:matterId', async (req, res) => {
+  const matterId = req.params.matterId;
+  const matter = await Matter.findOne({ firm_id: req.user.firm_id, _id: matterId }); // ensure we own
+  if (!matter) { res.status(401).json({ message: 'unauthorized' }); return; } // move to middleware?
+  await Matter.findByIdAndUpdate(matterId, req.body);
+  res.send();
+});
 
 
 module.exports = router;

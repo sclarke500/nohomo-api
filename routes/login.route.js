@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const { User } = require('../models/user.model');
 const { Firm } = require('../models/firm.model');
-// const blacklist = require('../utils/blacklist');
+const blacklist = require('../utils/blacklist');
 
 const auth = require('../middleware/auth');
 

@@ -1,5 +1,5 @@
 const redis = require('redis');
-const redisClient = redis.createClient({ host: process.env.REDIS_HOST, port: process.env.REDIS_PORT });
+const redisClient = redis.createClient(process.env.REDIS_URL);
 
 module.exports = {
   registerOnLogout: registerOnLogout,

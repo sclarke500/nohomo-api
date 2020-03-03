@@ -89,12 +89,12 @@ router.post('/reset-password', async (req, res) => {
 
 });
 
-// router.post('/logout', auth, async (req, res) => {
-//   const token = req.headers['x-access-token'] || req.headers['authorization'];
-//   if (req.user.exp) {
-//     await blacklist.registerOnLogout(token, req.user.exp);
-//   }
-//   res.send();
-// });
+router.post('/logout', auth, async (req, res) => {
+  const token = req.headers['x-access-token'] || req.headers['authorization'];
+  if (req.user.exp) {
+    await blacklist.registerOnLogout(token, req.user.exp);
+  }
+  res.send();
+});
 
 module.exports = router;
